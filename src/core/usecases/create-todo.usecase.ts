@@ -1,12 +1,17 @@
+import { TodoRepositoryOrm } from 'src/infrastructure/database/repositories/todo.repository';
 import { Todo } from '../domain/entities/todo.entity';
-import { TodoRepository } from '../domain/repositories/todo.repository';
+import { forwardRef, Inject } from '@nestjs/common';
 
 export class CreateTodoUseCase {
-  constructor(private todoRepository: TodoRepository) {}
+  constructor(
+    @Inject(forwardRef(() => TodoRepositoryOrm))
+    private todoRepository: TodoRepositoryOrm,
+  ) {
+    console.log('TodoRepositoryCreate:', this.todoRepository);
+  }
 
   async execute(title: string): Promise<Todo> {
-    const _title = title.trim();
-    const todo = new Todo(_title);
+    const todo = new Todo(title);
     return this.todoRepository.save(todo);
   }
 }

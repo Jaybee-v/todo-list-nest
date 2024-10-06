@@ -8,7 +8,7 @@ import { TodoOrmEntity } from './infrastructure/database/entities/todo.orm-entit
     TodosModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: '0.0.0.0',
       port: 5432,
       username: 'todo_user',
       password: 'todo_pass',

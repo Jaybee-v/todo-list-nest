@@ -3,13 +3,61 @@
     <meta charset='UTF-8' />
     <meta name='viewport' content='width=device-width, initial-scale=1.0' />
     <title>Todo List</title>
+    <style>
+      body { font-family: Arial, sans-serif; background-color: #f4f4f4; color:
+      #333; margin: 0; padding: 20px; display: flex; flex-direction: column;
+      align-items: center; } h1 { color: #4CAF50; margin-bottom: 20px; } ul {
+      list-style-type: none; padding: 0; width: 100%; max-width: 600px; margin:
+      0 auto; } li { background-color: #fff; border: 1px solid #ddd;
+      border-radius: 5px; padding: 10px 15px; margin: 5px 0; box-shadow: 0 2px
+      5px rgba(0, 0, 0, 0.1); transition: background-color 0.3s; } li:hover {
+      background-color: #f0f8ff; } p { font-size: 18px; color: #666; } .btn {
+      background-color: #4CAF50; color: #fff; border: none; border-radius: 5px;
+      } .btn:hover { background-color: #45a049; } .card { background-color:
+      #fff; padding: 20px; border-radius: 5px; box-shadow: 0 } .toComplete {
+      color: #f3f3f3; background: #e0851d; padding: 5px; border-radius: 8px; }
+      .completed { color: #07700a; font-weight: bold; }
+    </style>
   </head>
   <body>
     <h1>Todo List</h1>
+    <div class='card'>
+      <form method='POST' action='/todos'>
+        <label>
+          Title:
+        </label>
+        <input
+          type='text'
+          name='title'
+          placeholder='Enter todo title'
+          required
+        />
+        <button class='btn' type='submit'>
+          Add Todo
+        </button>
+      </form>
+    </div>
     {{#if todos.length}}
       <ul>
         {{#each todos}}
-          <li>{{this.title}}</li>
+          <li>
+            <section>
+              <h3>
+                {{this.title}}
+              </h3>
+              {{#if this.completed}}
+                <p class='completed'>
+                  Completed
+                </p>
+              {{else}}
+                <form method='POST' action='/todos/{{this.id}}/complete'>
+                  <button class='toComplete' type='submit'>
+                    Complete
+                  </button>
+                </form>
+              {{/if}}
+            </section>
+          </li>
         {{/each}}
       </ul>
     {{else}}

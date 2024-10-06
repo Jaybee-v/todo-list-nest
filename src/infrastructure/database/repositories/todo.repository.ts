@@ -9,7 +9,7 @@ import { Repository } from 'typeorm';
 export class TodoRepositoryOrm implements TodoRepository {
   constructor(
     @InjectRepository(TodoOrmEntity)
-    private readonly ormRepository: Repository<TodoOrmEntity>,
+    private ormRepository: Repository<TodoOrmEntity>,
   ) {}
 
   async save(todo: Todo): Promise<Todo> {
@@ -31,6 +31,17 @@ export class TodoRepositoryOrm implements TodoRepository {
       throw new Error('Todo not found');
     }
     return this.toDomainEntity(todoOrm);
+  }
+
+  async complete(id: number): Promise<Todo> {
+    const todoOrm = await this.ormRepository.findOne({ where: { id } });
+    if (!todoOrm) {
+      throw new Error('Todo not found');
+    }
+
+    todoOrm.completed = true;
+    const updatedTodoOrm = await this.ormRepository.save(todoOrm);
+    return this.toDomainEntity(updatedTodoOrm);
   }
 
   // Méthodes pour convertir entre le domaine et l'entité ORM

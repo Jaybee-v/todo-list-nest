@@ -5,7 +5,7 @@ export class Todo {
   created_at: string;
 
   constructor(title: string) {
-    if (!title.trim()) {
+    if (!title) {
       throw new Error("Title can't be empty");
     }
 

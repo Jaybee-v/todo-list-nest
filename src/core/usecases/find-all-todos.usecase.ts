@@ -4,7 +4,9 @@ import { TodoRepositoryOrm } from 'src/infrastructure/database/repositories/todo
 
 @Injectable()
 export class FindAllTodosUseCase {
-  constructor(private todoRepository: TodoRepositoryOrm) {}
+  constructor(private todoRepository: TodoRepositoryOrm) {
+    console.log('FindAllTodosRepo', this.todoRepository);
+  }
 
   async execute(): Promise<Todo[]> {
     console.log(this.todoRepository);
