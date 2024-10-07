@@ -1,9 +1,9 @@
 import { Todo } from 'src/core/domain/entities/todo.entity';
-import { TodoRepository } from 'src/core/domain/repositories/todo.repository';
 import { FindAllTodosUseCase } from 'src/core/usecases/find-all-todos.usecase';
+import { TodoRepositoryOrm } from 'src/infrastructure/database/repositories/todo.repository';
 
 describe('FindAllTodos', () => {
-  let todoRepository: TodoRepository;
+  let todoRepository: TodoRepositoryOrm;
   let findAllTodosUseCase: FindAllTodosUseCase;
 
   beforeEach(() => {
@@ -12,7 +12,7 @@ describe('FindAllTodos', () => {
       save: jest.fn(),
       findById: jest.fn(),
       delete: jest.fn(),
-    } as unknown as TodoRepository; // Création d'un mock pour TodoRepository
+    } as unknown as TodoRepositoryOrm; // Création d'un mock pour TodoRepository
 
     findAllTodosUseCase = new FindAllTodosUseCase(todoRepository);
   });

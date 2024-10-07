@@ -1,16 +1,16 @@
 import { Todo } from 'src/core/domain/entities/todo.entity';
-import { TodoRepository } from 'src/core/domain/repositories/todo.repository';
 import { CreateTodoUseCase } from 'src/core/usecases/create-todo.usecase';
+import { TodoRepositoryOrm } from 'src/infrastructure/database/repositories/todo.repository';
 
 describe('CreateTodo', () => {
-  let todoRepository: Partial<TodoRepository>;
+  let todoRepository: Partial<TodoRepositoryOrm>;
   let createTodo: CreateTodoUseCase;
 
   beforeEach(() => {
     todoRepository = {
       save: jest.fn(),
     };
-    createTodo = new CreateTodoUseCase(todoRepository as TodoRepository);
+    createTodo = new CreateTodoUseCase(todoRepository as TodoRepositoryOrm);
   });
 
   it('should create a todo', async () => {
